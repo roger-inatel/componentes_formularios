@@ -1,38 +1,41 @@
 // main.js: menu, temas e carrossel
 
-function openMenu() {
-  document.getElementById('menu_aba').style.display = 'block';
-}
-
-function closeMenu() {
-  document.getElementById('menu_aba').style.display = 'none';
-}
+function openMenu() { document.getElementById('menu_aba').style.display = 'block'; }
+function closeMenu() { document.getElementById('menu_aba').style.display = 'none'; }
 
 function temaLim() {
-  document.documentElement.style.setProperty('--cor-click', '#38184C');
-  document.documentElement.style.setProperty('--cor-sombra', '#9b0a59');
-  document.documentElement.style.setProperty('--cor-text', 'black');
-  document.documentElement.style.setProperty('--cor-back1', '#CEF09D');
-  document.documentElement.style.setProperty('--cor-back2', '#4f6a93');
+  const cores = { '--cor-click': '#38184C', '--cor-sombra':'#9b0a59', '--cor-text':'#111', '--cor-back1':'#CEF09D', '--cor-back2':'#4f6a93' };
+  applyTheme(cores);
 }
 
 function temaInatel() {
-  document.documentElement.style.setProperty('--cor-click', '#126ae2');
-  document.documentElement.style.setProperty('--cor-sombra', '#0a599b');
-  document.documentElement.style.setProperty('--cor-text', 'black');
-  document.documentElement.style.setProperty('--cor-back1', '#edf2f4');
-  document.documentElement.style.setProperty('--cor-back2', '#6a937a');
+  const cores = { '--cor-click':'#126ae2', '--cor-sombra':'#0a599b', '--cor-text':'#111', '--cor-back1':'#edf2f4', '--cor-back2':'#6a937a' };
+  applyTheme(cores);
 }
 
 function temaDark() {
-  const cores = {
-    '--cor-click': '#CEF09D',
-    '--cor-sombra': '#9b0a59',
-    '--cor-text': 'black',
-    '--cor-back1': '#38184C',
-    '--cor-back2': '#4f6a93',
-  };
+  const cores = { '--cor-click':'#CEF09D', '--cor-sombra':'#9b0a59', '--cor-text':'#fff', '--cor-back1':'#2b2436', '--cor-back2':'#4f6a93' };
+  applyTheme(cores);
+}
+
+function applyTheme(cores) {
   Object.entries(cores).forEach(([k,v]) => document.documentElement.style.setProperty(k,v));
+  // salvar nome simbólico para persistência
+}
+
+// Ciclar temas e persistir
+const THEMES = ['inatel','limao','dark'];
+function setThemeByKey(key){
+  if(key==='inatel') temaInatel();
+  if(key==='limao') temaLim();
+  if(key==='dark') temaDark();
+  localStorage.setItem('site-theme', key);
+}
+function cycleTheme(){
+  const cur = localStorage.getItem('site-theme') || 'inatel';
+  const idx = THEMES.indexOf(cur);
+  const next = THEMES[(idx+1)%THEMES.length];
+  setThemeByKey(next);
 }
 
 // Carrossel simples
@@ -79,4 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let startX = 0;
   carousel.addEventListener('touchstart', e => startX = e.touches[0].clientX);
   carousel.addEventListener('touchend', e => { const endX = e.changedTouches[0].clientX; if (startX - endX > 50) nextCard(); if (endX - startX > 50) prevCard(); });
+});
+
+// inicializar tema salvo
+document.addEventListener('DOMContentLoaded', ()=>{
+  const saved = localStorage.getItem('site-theme') || 'inatel';
+  setThemeByKey(saved);
+  const btn = document.getElementById('themeToggle');
+  if(btn) btn.addEventListener('click', cycleTheme);
 });

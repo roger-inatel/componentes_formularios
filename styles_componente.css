@@ -1,4 +1,10 @@
 :root {
+  --cor-click: #126ae2;
+  --cor-sombra: #0a599b;
+  --cor-text: #111111;
+  --cor-back1: #edf2f4;
+  --cor-back2: #6a937a;
+
   --frequencia: #126ae2;
   --nota: #126ae2;
   --prova: #126ae2;  
@@ -11,6 +17,38 @@
   margin: 10px 0;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
+
+/* Header e ações */
+header#head{
+  position: sticky;
+  top: 0;
+  display:flex;
+  align-items:center;
+  height:48px;
+  background: var(--cor-back1);
+  padding: 6px 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  z-index: 10;
+}
+
+#menu{ margin-right: 12px; cursor:pointer }
+#logo{ flex:1; font-weight:700; color:var(--cor-click) }
+#header-actions{ display:flex; align-items:center; gap:8px }
+#themeToggle{ background:var(--cor-click); color:white; border:none; padding:6px 10px; border-radius:6px; cursor:pointer }
+
+/* Menu lateral (simples) */
+#menu_aba{ position:fixed; top:56px; left:12px; background:white; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); display:none; z-index:20 }
+#menu_bot{ padding:10px 14px; cursor:pointer; color:var(--cor-click) }
+
+/* Carousel */
+.carousel-container{ position: relative; overflow: hidden; background-color: white; border-radius: 10px; margin: 20px 0; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06); }
+.carousel{ display:flex; transition: transform 0.5s ease-in-out }
+.card{ min-width:100%; }
+.card img{ width:100%; height:180px; object-fit:cover; border-top-left-radius:10px; border-top-right-radius:10px }
+.info{ padding:10px }
+button#prevBtn, button#nextBtn{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:white; border:none; padding:8px 10px; border-radius:6px; cursor:pointer }
+#prevBtn{ left:8px }
+#nextBtn{ right:8px }
 
 .titulo_aula {
   font-weight: bold;
