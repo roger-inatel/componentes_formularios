@@ -1,12 +1,56 @@
+
+
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Componentes e Formulários - Aulas</title>
-  </head>
-  <body>
-    <aulas-component id="componente"></aulas-component>
-    <script src="script_componente.js"></script>
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Componentes e Formulários - Aulas</title>
+		<link rel="stylesheet" href="styles_componente.css">
+		<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;600;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+	</head>
+	<body>
+		<header id="head">
+			<div id="menu" onclick="openMenu()"><span class="material-symbols-outlined icoG">menu</span></div>
+			<div id="logo">Inatel</div>
+			<div id="perfil"><span class="material-symbols-outlined icoG">person</span></div>
+		</header>
+
+		<div id="menu_aba">
+			<div id="menu_bot" onclick="closeMenu(); temaInatel()">Tema Inatel</div>
+			<div id="menu_bot" onclick="closeMenu(); temaLim()">Tema Limão</div>
+			<div id="menu_bot" onclick="closeMenu(); temaDark()">Tema Dark</div>
+		</div>
+
+		<main>
+			<div id="mensagens">
+				<div id="user_name" class="font"><b>Olá Roger!</b></div>
+				<div id="mns_box">
+					<div id="icon"><span class="material-symbols-outlined icoP">notifications_active</span></div>
+					<div id="mns" class="font">Você possui um armário reservado com entrega para hoje...</div>
+				</div>
+				<div id="mns_box">
+					<div id="icon"><span class="material-symbols-outlined icoP">mail</span></div>
+					<div id="mns" class="font">Você possui uma pendência no financeiro...</div>
+				</div>
+			</div>
+
+			<!-- componente de aulas (fica aqui no body antes do script conforme exigido) -->
+			<aulas-component id="componente"></aulas-component>
+
+			<div class="carousel-container">
+				<div class="carousel">
+					<!-- cards serão inseridos por main.js -->
+				</div>
+				<button id="prevBtn" aria-label="Anterior">❮</button>
+				<button id="nextBtn" aria-label="Próximo">❯</button>
+			</div>
+		</main>
+
+		<!-- scripts: componente primeiro (usa fetch relativo), depois o main com menu e carrossel -->
+		<script src="script_componente.js"></script>
+		<script src="main.js"></script>
+	</body>
 </html>
+

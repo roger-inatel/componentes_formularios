@@ -3,6 +3,12 @@ class AulasComponent extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.hoje = "ter";
+    // fallback local (usado se fetch falhar)
+    this._fallback = [
+      { id: 1, disciplina: 'S05 - Interface Homem-máquina', data: 'ter', horario: '10:00', local: 'P1-S17', prova_alert: false, prova: '12/05', frequencia: '10/25', nota: '9' },
+      { id: 2, disciplina: 'E01 - Circuitos Elétricos em Corrente Contínua', data: 'ter', horario: '10:00', local: 'P1-S17', prova_alert: true, prova: '12/05', frequencia: '10/25', nota: '5' },
+      { id: 3, disciplina: 'M02 - Álgebra e Geometria Analítica', data: 'ter', horario: '10:00', local: 'P1-S17', prova_alert: true, prova: '12/05', frequencia: '10/25', nota: '7' }
+    ];
   }
 
   connectedCallback() {
@@ -12,10 +18,13 @@ class AulasComponent extends HTMLElement {
   async loadData() {
     try {
       const response = await fetch('aulas.json');
+      if (!response.ok) throw new Error('HTTP error ' + response.status);
       const aulas = await response.json();
       this.render(aulas);
     } catch (error) {
       console.error('Erro ao carregar os dados das aulas:', error);
+      // usa fallback local
+      this.render(this._fallback);
     }
   }
 
